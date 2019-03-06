@@ -1,0 +1,56 @@
+#!/usr/bin/python3
+""" xpcmp
+A script to compare an Excel file and a PDF file.
+
+Usage: `xpcmp file1 file2`
+"""
+
+import sys
+import os.path
+
+from compare import *
+
+
+
+def detect_extension(file1, file2):
+    """ Detects the extension of the two files. """
+    pdf, excel = None, None
+    ext = os.path.splitext(file1)[1].lower()
+    if ext in ('.xlsx', '.xls'):
+        excel = file1
+    elif ext == '.pdf':
+        pdf = file1
+    else:
+        raise ValueError('Unkown file extension: %s' % ext)
+        
+    ext = os.path.splitext(file2)[1].lower()
+    if ext in ('.xlsx', '.xls'):
+        if excel is None:
+            excel = file2
+        else:
+            raise ValueError('Excel file has already been set.')
+    elif ext == '.pdf':
+        if pdf is None:
+            pdf = file2
+        else:
+            raise ValueError('PDF file has already been set.')
+    
+    return excel, pdf
+
+def handle_args():
+    """ Handle command line arguments. """
+    if len(sys.argv[1 : ]) != 2:
+        raise ValueError('You must provide exactly one PDF and one Excel file.')
+    
+    return detect_extension(*sys.argv[1 : ])
+        
+        
+def main():
+    """ Code to execute on the script. """
+    excel_path, pdf_path = handle_args()
+    match = Matchmaker(excel_path, pdf_path)
+    print(match.nospan_match())
+    
+    
+main()
+    
