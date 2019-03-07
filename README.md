@@ -3,7 +3,7 @@
 ## Introduction
 
 A Python module to compare an Excel file to a PDF file.
-This project stems from [this question] (https://ask.wellsr.com/52/checking-pdf-print-out-in-file).
+This project stems from [this question](https://ask.wellsr.com/52/checking-pdf-print-out-in-file).
 Refer to the answer to the question or to the article for a detailed explanation.
 
 ## Table of Contents
